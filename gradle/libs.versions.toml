@@ -16,6 +16,8 @@ junit = "4.13.2"
 kotlin = "2.0.20"
 stream-chat = "6.5.0"
 build-konfig = "0.15.2"
+uiAndroid = "1.6.7"
+androidx-navigation = "2.7.0-alpha07"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -32,6 +34,8 @@ androidx-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", nam
 androidx-lifecycle-runtime-compose = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 stream-chat-compose = { group = "io.getstream", name = "stream-chat-android-compose", version.ref = "stream-chat" }
 stream-chat-offline = { group = "io.getstream", name = "stream-chat-android-offline", version.ref = "stream-chat" }
+androidx-ui-android = { group = "androidx.compose.ui", name = "ui-android", version.ref = "uiAndroid" }
+androidx-navigation = { group = "org.jetbrains.androidx.navigation", name = "navigation-compose", version.ref = "androidx-navigation" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
