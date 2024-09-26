@@ -38,6 +38,13 @@ kotlin {
             implementation(libs.stream.chat.compose)
             implementation(libs.stream.chat.offline)
         }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
     }
 }
 
@@ -77,6 +84,7 @@ android {
         debugImplementation(compose.uiTooling)
     }
 }
+
 dependencies {
     implementation(libs.androidx.ui.android)
     implementation(libs.androidx.ui.android)
@@ -93,7 +101,7 @@ buildkonfig {
     try {
         props.load(file(rootProject.file("local.properties").absolutePath).inputStream())
     } catch (e: Exception) {
-        // keys are private and can not be committed to git
+        e.printStackTrace()
     }
 
     defaultConfigs {
