@@ -1,11 +1,14 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type
+import org.jetbrains.kotlin.konan.properties.Properties
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.buildKonfig)
 }
 
 kotlin {
@@ -31,8 +34,16 @@ kotlin {
             implementation(compose.components.uiToolingPreview)
             implementation(libs.androidx.lifecycle.viewmodel)
             implementation(libs.androidx.lifecycle.runtime.compose)
+            implementation(libs.androidx.navigation)
             implementation(libs.stream.chat.compose)
             implementation(libs.stream.chat.offline)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+
+            @OptIn(org.jetbrains.compose.ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
         }
     }
 }
@@ -71,5 +82,38 @@ android {
     }
     dependencies {
         debugImplementation(compose.uiTooling)
+    }
+}
+
+dependencies {
+    implementation(libs.androidx.ui.android)
+    implementation(libs.androidx.ui.android)
+    implementation(libs.androidx.ui.android)
+}
+
+buildkonfig {
+    packageName = "dev.zaitech.chatto"
+    objectName = "Secrets"
+
+
+    val props = Properties()
+
+    try {
+        props.load(file(rootProject.file("local.properties").absolutePath).inputStream())
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+
+    defaultConfigs {
+        buildConfigField(
+            Type.STRING,
+            "STREAM_API_KEY",
+            props["stream_api_key"].toString()
+        )
+        buildConfigField(
+            Type.STRING,
+            "STREAM_CLIENT_TOKEN",
+            props["stream_client_token"].toString()
+        )
     }
 }
